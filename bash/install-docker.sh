@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Server update
-apt update
-apt upgrade -y
+apt-get update
+apt-get upgrade -y
 
 # Docker
 # Ref.: https://docs.docker.com/engine/install/ubuntu/
