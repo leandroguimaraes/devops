@@ -1,7 +1,7 @@
 version: "3.7" 
 services:
   apache:
-    image: 'php:8.0.6-apache'
+    build: .
     container_name: php
     restart: always
     ports:
@@ -16,6 +16,7 @@ services:
   mysql:
     image: mysql
     container_name: mysql
+    restart: always
     ports:
       - "3306:3306"
     volumes:
