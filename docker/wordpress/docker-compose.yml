@@ -1,0 +1,41 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      DEVELOPMENT: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_CACHE', false);
+        define('ENVIRONMENT', 'local');
+        define('WP_DEBUG', true);
+    volumes:
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
+      - ./wp-content/themes:/var/www/html/wp-content/themes
+      - ./wp-content/languages:/var/www/html/wp-content/languages
+      - ./wp-content/uploads:/var/www/html/wp-content/uploads
+
+  db:
+    image: mysql
+    container_name: wordpress_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
